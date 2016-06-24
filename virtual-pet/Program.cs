@@ -28,10 +28,9 @@ namespace virtual_pet
             while (true)
             {
                 myPet.MainMenu();
-                Console.ReadKey();
             }
-                                  
+                                           
         }
-        
-    }
+
+     }
 }
