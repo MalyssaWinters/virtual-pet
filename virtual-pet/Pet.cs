@@ -16,9 +16,9 @@ namespace virtual_pet
 
         public Pet()
         {
-            Hunger = 10;
-            Waste = 10;
-            Activity = 10;
+            Hunger = 5;
+            Waste = 5;
+            Activity = 5;
         }
 
         public int MainMenu()
@@ -65,6 +65,7 @@ namespace virtual_pet
             Console.Clear();
 
             Console.WriteLine(PetName + "'s Health Status");
+            Console.WriteLine("Health is full at 10");
             Console.WriteLine("\nHunger   | " + Hunger);
             Console.WriteLine("Waste    | " + Waste);
             Console.WriteLine("Activity | " + Activity);
@@ -85,7 +86,10 @@ namespace virtual_pet
                 }
                 else
                 {
-                    Hunger += 1;
+                    Hunger++;
+                    Waste -= 1;
+                    Activity += 1;
+                    HealthStatus();
                 }
             }
         }
@@ -97,10 +101,11 @@ namespace virtual_pet
                 if (Waste >= 10)
                 {
                     Console.WriteLine("\n" + PetName + " doesn't need to go out.");
-                }
+                                    }
                 else
                 {
-                    Waste += 1;
+                    Waste++;
+                    HealthStatus();
                 }
             }
         }
@@ -115,7 +120,9 @@ namespace virtual_pet
                 }
                 else
                 {
-                    Activity += 1;
+                    Activity+= 2;
+                    Hunger -= 2;
+                    HealthStatus();
                 }
             }
         }
