@@ -9,17 +9,16 @@ namespace virtual_pet
     class Pet
     {
         public string PetName { get; set; }
-        public int Feed { get; set; }
+        public int Hunger { get; set; }
         public int Waste { get; set; }
-        public int Exercise { get; set; }
-        
+        public int Activity { get; set; }
+
 
         public Pet()
         {
-            Feed = 10;
+            Hunger = 10;
             Waste = 10;
-            Exercise = 10;
-            
+            Activity = 10;
         }
 
         public int MainMenu()
@@ -27,63 +26,101 @@ namespace virtual_pet
             Console.Clear();
             int menuChoice = 0;
 
-            Console.WriteLine("\nChoose an option below to interact with " + PetName + ".");
-            Console.WriteLine("\n1. Feed");
-            Console.WriteLine("2. Waste");
-            Console.WriteLine("3. Exercise");
-           
+            Console.WriteLine("\nChoose an option below.");
+            Console.WriteLine("\n1. Health Status");
+            Console.WriteLine("2. Feed");
+            Console.WriteLine("3. Bathroom Break");
+            Console.WriteLine("4. Exercise");
+                                   
             while (true)
             {
+                string userChoice = Console.ReadLine();
+                menuChoice = Convert.ToInt32(userChoice);
+
                 if (menuChoice == 1)
                 {
-                    Hunger();
+                    HealthStatus();
                 }
                 else if (menuChoice == 2)
                 {
-                    Bathroom();
+                    Feed();
                 }
                 else if (menuChoice == 3)
                 {
-                    Active();
+                    Bathroom();
+                }
+                else if (menuChoice == 4)
+                {
+                    Exercise();
                 }
                 else
                 {
-                    while (menuChoice < 1 || menuChoice > 3)
-                    {
-                        try
-                        {
-                            string userChoice = Console.ReadLine();
-                            menuChoice = Convert.ToInt32(userChoice);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine("Invalid entry. Choose options 1-3.");
-                        }
-                    }
+                    Console.WriteLine("Invalid entry. Please choose option from list above.");
                 }
             }
-            return menuChoice;
         }
 
-        public int Hunger()
+        public int HealthStatus()
         {
-            Console.WriteLine(PetName + "'s hunger level is at {0}.",Feed);
-            return 0;
+            Console.Clear();
+
+            Console.WriteLine(PetName + "'s Health Status");
+            Console.WriteLine("\nHunger   | " + Hunger);
+            Console.WriteLine("Waste    | " + Waste);
+            Console.WriteLine("Activity | " + Activity);
+
+            Console.WriteLine("\nPress enter to interact with " + PetName + ".");
+            Console.ReadKey();
+
+            return MainMenu();
+         }
+
+        public void Feed()
+        {
+            for (int i = 1; i <= 1; i++)
+            {
+                if (Hunger >= 10)
+                {
+                    Console.WriteLine("\n" + PetName + " is full!");
+                }
+                else
+                {
+                    Hunger += 1;
+                }
+            }
+        }
+        
+        public void Bathroom()
+        {
+            for (int i = 1; i <= 1; i++)
+            {
+                if (Waste >= 10)
+                {
+                    Console.WriteLine("\n" + PetName + " doesn't need to go out.");
+                }
+                else
+                {
+                    Waste += 1;
+                }
+            }
         }
 
-        public int Bathroom()
+        public void Exercise()
         {
-            Console.WriteLine(PetName + "'s bathroom status is at {0}.",Waste);
-            return 0;
+            for(int i = 1; i <= 1; i++)
+            {
+                if (Activity >= 10)
+                {
+                    Console.WriteLine("\n" + PetName + " doesn't need to go exercise.");
+                }
+                else
+                {
+                    Activity += 1;
+                }
+            }
         }
 
-        public int Active()
-        {
-            Console.WriteLine(PetName + "'s activity level is at {0}.",Exercise);
-            return 0;
-        }
-      
-        private int Tick()
+        public int Tick()
         {
             return 0;
         }
