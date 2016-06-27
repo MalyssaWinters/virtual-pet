@@ -9,19 +9,91 @@ namespace virtual_pet
     class Pet
     {
         public string PetName { get; set; }
-        public int Hunger { get; set; }
-        public int Waste { get; set; }
-        public int Activity { get; set; }
-        
+        public int MaxHealth { get; set; }
+        public int MinHealth { get; set; }
+        public bool IsAlive()
+        {
+            if (Hunger >= MinHealth && Waste >= MinHealth && Activity >= MinHealth)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private int _hunger;
+        public int Hunger
+        {
+            get
+            {
+                return _hunger;
+            }
+            set
+            {
+                _hunger = value;
+                if (_hunger > 10)
+                {
+                    _hunger = MaxHealth;
+                }
+                if (_hunger < MinHealth)
+                {
+                    IsAlive();
+                }
+            }
+        }
+        private int _waste;
+        public int Waste
+        {
+            get
+            {
+                return _waste;
+            }
+            set
+            {
+                _waste = value;
+                if (_waste > 10)
+                {
+                    _waste = MaxHealth;
+                }
+                if (_waste < MinHealth)
+                {
+                    IsAlive();
+                }
+            }
+        }
+
+        private int _activity;
+        public int Activity
+        {
+            get
+            {
+                return _activity;
+            }
+            set
+            {
+                _activity = value;
+                if (_activity > 10)
+                {
+                    _activity = MaxHealth;
+                }
+                if (_activity < MinHealth)
+                {
+                    IsAlive();
+                }
+            }
+        }
 
         public Pet()
         {
             Hunger = 5;
             Waste = 5;
             Activity = 5;
+            MaxHealth = 10;
+            MinHealth = 1;
         }
 
-        public int MainMenu()
+        public void MainMenu()
         {
             Console.Clear();
             int menuChoice = 0;
@@ -31,8 +103,8 @@ namespace virtual_pet
             Console.WriteLine("2. Feed");
             Console.WriteLine("3. Bathroom Break");
             Console.WriteLine("4. Exercise");
-                                   
-            while (true)
+
+            while (IsAlive())
             {
                 string userChoice = Console.ReadLine();
                 if (userChoice == "1" || userChoice == "2" || userChoice == "3" || userChoice == "4")
@@ -56,30 +128,49 @@ namespace virtual_pet
                 {
                     Exercise();
                 }
+
                 else
                 {
                     Console.WriteLine("Invalid entry. Press enter to continue.");
                     Console.ReadLine();
-                    return MainMenu();
+                    MainMenu();
                 }
             }
         }
 
-        public int HealthStatus()
+        public void HealthStatus()
         {
-            Console.Clear();
+            if (!IsAlive())
+            {
+                Console.WriteLine(PetName + "'s health status has reached 0.");
+                Console.WriteLine("\nGAME OVER!");
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine(PetName + "'s Health Status");
+                Console.WriteLine("\nHealth is full at 10");
+                Console.WriteLine("Game is over if Health Status reaches 0");
+                Console.WriteLine("\n|\\___/|");
+                Console.WriteLine("/ _  _ \\      ,--.");
+                Console.WriteLine("( @  @ )     / ,-'");
+                Console.WriteLine(" \\__t_/-._ ( (");
+                Console.WriteLine("/         `.   \\");
+                Console.WriteLine("|        _   \\ |");
+                Console.WriteLine("\\ \\ ,  /       |");
+                Console.WriteLine(" || |-_\\__    /");
+                Console.WriteLine("((_ /`(____,-'");
+                Console.WriteLine();
 
-            Console.WriteLine(PetName + "'s Health Status");
-            Console.WriteLine("Health is full at 10");
-            Console.WriteLine("\nHunger   | " + Hunger);
-            Console.WriteLine("Waste    | " + Waste);
-            Console.WriteLine("Activity | " + Activity);
+                Console.WriteLine("\nHunger   | " + Hunger);
+                Console.WriteLine("Waste    | " + Waste);
+                Console.WriteLine("Activity | " + Activity);
 
-            Console.WriteLine("\nPress enter to interact with " + PetName + ".");
-            Console.ReadKey();
-
-            return MainMenu();
-         }
+                Console.WriteLine("\nPress enter to interact with " + PetName + ".");
+            }
+            Console.ReadKey();          
+            MainMenu();
+        }
 
         public void Feed()
         {
@@ -93,12 +184,12 @@ namespace virtual_pet
                 {
                     Hunger++;
                     Waste -= 1;
-                    Activity += 1;
+                    Activity -= 2;
                     HealthStatus();
                 }
             }
         }
-        
+
         public void Bathroom()
         {
             for (int i = 1; i <= 1; i++)
@@ -106,10 +197,11 @@ namespace virtual_pet
                 if (Waste >= 10)
                 {
                     Console.WriteLine("\n" + PetName + " doesn't need to go out.");
-                                    }
+                }
                 else
                 {
                     Waste++;
+                    Hunger -= 2;
                     HealthStatus();
                 }
             }
@@ -118,7 +210,7 @@ namespace virtual_pet
         public void Exercise()
         {
             Tick();
-            for(int i = 1; i <= 1; i++)
+            for (int i = 1; i <= 1; i++)
             {
                 if (Activity >= 10)
                 {
@@ -126,16 +218,15 @@ namespace virtual_pet
                 }
                 else
                 {
-                    Activity+= 2;
+                    Activity += 1;
                     Hunger -= 2;
                     HealthStatus();
                 }
             }
-         }
+        }
 
         public int Tick()
         {
-            Waste -= 1;
             Hunger += 1;
             return 0;
         }
