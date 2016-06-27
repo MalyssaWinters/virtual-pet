@@ -12,7 +12,7 @@ namespace virtual_pet
         public int Hunger { get; set; }
         public int Waste { get; set; }
         public int Activity { get; set; }
-
+        
 
         public Pet()
         {
@@ -35,7 +35,10 @@ namespace virtual_pet
             while (true)
             {
                 string userChoice = Console.ReadLine();
-                menuChoice = Convert.ToInt32(userChoice);
+                if (userChoice == "1" || userChoice == "2" || userChoice == "3" || userChoice == "4")
+                {
+                    menuChoice = Convert.ToInt32(userChoice);
+                }
 
                 if (menuChoice == 1)
                 {
@@ -55,7 +58,9 @@ namespace virtual_pet
                 }
                 else
                 {
-                    Console.WriteLine("Invalid entry. Please choose option from list above.");
+                    Console.WriteLine("Invalid entry. Press enter to continue.");
+                    Console.ReadLine();
+                    return MainMenu();
                 }
             }
         }
@@ -112,6 +117,7 @@ namespace virtual_pet
 
         public void Exercise()
         {
+            Tick();
             for(int i = 1; i <= 1; i++)
             {
                 if (Activity >= 10)
@@ -125,10 +131,12 @@ namespace virtual_pet
                     HealthStatus();
                 }
             }
-        }
+         }
 
         public int Tick()
         {
+            Waste -= 1;
+            Hunger += 1;
             return 0;
         }
     }
