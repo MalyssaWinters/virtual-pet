@@ -179,12 +179,13 @@ namespace virtual_pet
                 if (Hunger >= 10)
                 {
                     Console.WriteLine("\n" + PetName + " is full!");
+                    Console.WriteLine("\nSelect 1 to see Health Status.");
                 }
                 else
                 {
                     Hunger++;
-                    Waste -= 1;
-                    Activity -= 2;
+                    Waste -= 2;
+                    Activity -= 1;
                     HealthStatus();
                 }
             }
@@ -197,11 +198,12 @@ namespace virtual_pet
                 if (Waste >= 10)
                 {
                     Console.WriteLine("\n" + PetName + " doesn't need to go out.");
+                    Console.WriteLine("\nSelect 1 to see Health Status.");
                 }
                 else
                 {
                     Waste++;
-                    Hunger -= 2;
+                    Hunger -= 1;
                     HealthStatus();
                 }
             }
@@ -215,11 +217,12 @@ namespace virtual_pet
                 if (Activity >= 10)
                 {
                     Console.WriteLine("\n" + PetName + " doesn't need to go exercise.");
+                    Console.WriteLine("\nSelect 1 to see Health Status.");
                 }
                 else
                 {
                     Activity += 1;
-                    Hunger -= 2;
+                    Hunger -= 1;
                     HealthStatus();
                 }
             }
@@ -227,7 +230,7 @@ namespace virtual_pet
 
         public int Tick()
         {
-            Hunger += 1;
+            Hunger += 3;
             return 0;
         }
     }
